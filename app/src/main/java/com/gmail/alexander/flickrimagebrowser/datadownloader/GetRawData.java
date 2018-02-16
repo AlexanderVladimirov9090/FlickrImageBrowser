@@ -3,8 +3,6 @@ package com.gmail.alexander.flickrimagebrowser.datadownloader;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.gmail.alexander.flickrimagebrowser.MainActivity;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -21,17 +19,17 @@ import java.net.URL;
 public class GetRawData extends AsyncTask<String, Void, String> {
     private static String TAG = "GetRawData";
     private DownloadStatus downloadStatus;
-    private final MainActivity callBack;
-    public GetRawData(MainActivity callBack) {
-        this.callBack = callBack;
+    private OnDownloadComplete onDownloadComplete;
+    public GetRawData(OnDownloadComplete callBack) {
+        this.onDownloadComplete = callBack;
         this.downloadStatus = DownloadStatus.IDLE;
     }
 
     @Override
     protected void onPostExecute(String s) {
         Log.d(TAG, "onPostExecute: parameter: " + s);
-            if (callBack!=null){
-                callBack.onDownloadComplete(s,downloadStatus);
+            if (onDownloadComplete!=null){
+                onDownloadComplete.onDownloadComplete(s,downloadStatus);
             }
         Log.d(TAG, "onPostExecute: ends");
     }
