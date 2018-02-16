@@ -53,4 +53,13 @@ public class Photo {
         return image;
     }
 
+    @Override
+    public String toString() {
+        return  "title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", authorId='" + authorId + '\'' +
+                ", link='" + link + '\'' +
+                ", tags='" + tags + '\'' +
+                ", image='" + image + '\'';
+    }
 }
