@@ -1,5 +1,6 @@
 package com.gmail.alexander.flickrimagebrowser.serialization;
 
+import android.net.Uri;
 import android.util.Log;
 
 import com.gmail.alexander.flickrimagebrowser.datadownloader.DownloadStatus;
@@ -46,6 +47,11 @@ public class PhotoFromJSON implements OnDownloadComplete {
     }
 
     private String createUri(String searchCriteria, String language, boolean matchAll) {
-        return null;
+        return Uri.parse(baseUrl).buildUpon().appendQueryParameter("tags",searchCriteria)
+                .appendQueryParameter("tagmode",matchAll ? "ALL" : "ANY")
+                .appendQueryParameter("lang",language)
+                .appendQueryParameter("format","json")
+                .appendQueryParameter("nojsoncallback","1")
+                .build().toString();
     }
 }
