@@ -8,8 +8,9 @@ import android.view.MenuItem;
 
 import com.gmail.alexander.flickrimagebrowser.datadownloader.DownloadStatus;
 import com.gmail.alexander.flickrimagebrowser.datadownloader.GetRawData;
+import com.gmail.alexander.flickrimagebrowser.datadownloader.OnDownloadComplete;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnDownloadComplete {
     private static final String TAG = "MainActivity";
 
 
@@ -47,11 +48,12 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void onDownloadComplete(String data, DownloadStatus downloadStatus){
-        if(downloadStatus == DownloadStatus.OK){
+    @Override
+    public void onDownloadComplete(String data, DownloadStatus downloadStatus) {
+        if (downloadStatus == DownloadStatus.OK) {
             Log.d(TAG, "onDownloadComplete: data is" + data);
-        }else {
-            Log.e(TAG, "onDownloadComplete: Failed with status: "+ downloadStatus );
+        } else {
+            Log.e(TAG, "onDownloadComplete: Failed with status: " + downloadStatus);
         }
     }
 }
