@@ -2,10 +2,11 @@ package com.gmail.alexander.flickrimagebrowser;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.gmail.alexander.flickrimagebrowser.datadownloader.GetRawData;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -16,9 +17,8 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: starts");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
+        GetRawData getRawData = new GetRawData();
+        getRawData.execute("https://api.flickr.com/services/feeds/photos_public.gne/?tags=android&format=json&nojsoncallback=1");
         Log.d(TAG, "onCreate: ends");
     }
 
