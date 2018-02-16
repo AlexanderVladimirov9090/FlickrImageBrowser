@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.gmail.alexander.flickrimagebrowser.datadownloader.DownloadStatus;
 import com.gmail.alexander.flickrimagebrowser.datadownloader.GetRawData;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate: starts");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        GetRawData getRawData = new GetRawData();
+        GetRawData getRawData = new GetRawData(this);
         getRawData.execute("https://api.flickr.com/services/feeds/photos_public.gne/?tags=android&format=json&nojsoncallback=1");
         Log.d(TAG, "onCreate: ends");
     }
@@ -44,5 +45,13 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d(TAG, "onOptionsItemSelected() returned: returned");
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onDownloadComplete(String data, DownloadStatus downloadStatus){
+        if(downloadStatus == DownloadStatus.OK){
+            Log.d(TAG, "onDownloadComplete: data is" + data);
+        }else {
+            Log.e(TAG, "onDownloadComplete: Failed with status: "+ downloadStatus );
+        }
     }
 }
