@@ -1,6 +1,7 @@
 package com.gmail.alexander.flickrimagebrowser.serialization;
 
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.gmail.alexander.flickrimagebrowser.datadownloader.DownloadStatus;
@@ -23,7 +24,7 @@ import java.util.List;
  *         <alexandervladimirov1902@gmail.com>
  */
 
-public class PhotoFromJSON implements OnDownloadComplete {
+public class PhotoFromJSON extends AsyncTask<String, Void, List<Photo>> implements OnDownloadComplete {
     private static final String TAG = "PhotoFromJSON";
     private List<Photo> photos = null;
     private String baseUrl;
@@ -37,6 +38,14 @@ public class PhotoFromJSON implements OnDownloadComplete {
         this.language = language;
         this.matchAll = matchAll;
         this.callBack = callBack;
+    }
+
+    public void executeOnSameThread(String searchCriteria) {
+        Log.d(TAG, "executeOnSameThread: Starts");
+        String destinationUri = createUri(searchCriteria, language, matchAll);
+        GetRawData getRawData = new GetRawData(this);
+        getRawData.execute(destinationUri);
+        Log.d(TAG, "executeOnSameThread: ends");
     }
 
     @Override
@@ -70,12 +79,24 @@ public class PhotoFromJSON implements OnDownloadComplete {
         }
     }
 
-    public void executeOnSameThread(String searchCriteria) {
-        Log.d(TAG, "executeOnSameThread: Starts");
-        String destinationUri = createUri(searchCriteria, language, matchAll);
+    @Override
+    protected void onPostExecute(List<Photo> photos) {
+        Log.d(TAG, "onPostExecute: Starts");
+    if(callBack!=null){
+        callBack.onDataAvailable(photos,DownloadStatus.OK);
+    }
+        Log.d(TAG, "onPostExecute: Ends");
+    }
+
+    @Override
+    protected List<Photo> doInBackground(String... params) {
+        Log.d(TAG, "doInBackground: Starts");
+        String destinationUri = createUri(params[0],language,matchAll);
+
         GetRawData getRawData = new GetRawData(this);
-        getRawData.execute(destinationUri);
-        Log.d(TAG, "executeOnSameThread: ends");
+        getRawData.runInSameThread(destinationUri);
+        Log.d(TAG, "doInBackground: Ends");
+        return photos;
     }
 
     private String createUri(String searchCriteria, String language, boolean matchAll) {
