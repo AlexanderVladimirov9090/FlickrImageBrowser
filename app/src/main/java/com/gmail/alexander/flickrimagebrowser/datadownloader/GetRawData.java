@@ -18,21 +18,23 @@ import java.net.URL;
 public class GetRawData extends AsyncTask<String, Void, String> {
     private static String TAG = "GetRawData";
     private DownloadStatus downloadStatus;
-    private OnDownloadComplete onDownloadComplete;
+    private OnDownloadComplete callBack;
 
     public GetRawData(OnDownloadComplete callBack) {
-        this.onDownloadComplete = callBack;
+        this.callBack = callBack;
         this.downloadStatus = DownloadStatus.IDLE;
     }
 
     public void runInSameThread(String s) {
-        onPostExecute(doInBackground(s));
+        if (callBack != null) {
+            callBack.onDownloadComplete(doInBackground(s), downloadStatus);
+        }
     }
 
     @Override
     protected void onPostExecute(String s) {
-        if (onDownloadComplete != null) {
-            onDownloadComplete.onDownloadComplete(s, downloadStatus);
+        if (callBack != null) {
+            callBack.onDownloadComplete(s, downloadStatus);
         }
     }
 
