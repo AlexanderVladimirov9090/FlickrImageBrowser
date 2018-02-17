@@ -31,9 +31,9 @@ public class PhotoFromJSON extends AsyncTask<String, Void, List<Photo>> implemen
     private String language;
     private boolean matchAll;
     private final OnDataAvailable callBack;
+    private boolean onSameThread = false;
 
     public PhotoFromJSON(String baseUrl, String language, boolean matchAll, OnDataAvailable callBack) {
-        Log.d(TAG, "PhotoFromJSON: called");
         this.baseUrl = baseUrl;
         this.language = language;
         this.matchAll = matchAll;
@@ -41,20 +41,22 @@ public class PhotoFromJSON extends AsyncTask<String, Void, List<Photo>> implemen
     }
 
     public void executeOnSameThread(String searchCriteria) {
-        Log.d(TAG, "executeOnSameThread: Starts");
+        onSameThread = true;
         String destinationUri = createUri(searchCriteria, language, matchAll);
         GetRawData getRawData = new GetRawData(this);
+
         getRawData.execute(destinationUri);
-        Log.d(TAG, "executeOnSameThread: ends");
     }
 
     @Override
     public void onDownloadComplete(String data, DownloadStatus downloadStatus) {
         if (downloadStatus == DownloadStatus.OK) {
             photos = new ArrayList<>();
+
             try {
                 JSONObject jsonData = new JSONObject(data);
                 JSONArray itemsArray = jsonData.getJSONArray("items");
+
                 for (int i = 0; i < itemsArray.length(); i++) {
                     JSONObject jsonPhoto = itemsArray.getJSONObject(i);
                     String title = jsonPhoto.getString("title");
@@ -73,7 +75,7 @@ public class PhotoFromJSON extends AsyncTask<String, Void, List<Photo>> implemen
                 e.printStackTrace();
                 downloadStatus = DownloadStatus.FAIL_OR_EMPTY;
             }
-            if (callBack != null) {
+            if (onSameThread && callBack != null) {
                 callBack.onDataAvailable(photos, downloadStatus);
             }
         }
@@ -81,21 +83,17 @@ public class PhotoFromJSON extends AsyncTask<String, Void, List<Photo>> implemen
 
     @Override
     protected void onPostExecute(List<Photo> photos) {
-        Log.d(TAG, "onPostExecute: Starts");
-    if(callBack!=null){
-        callBack.onDataAvailable(photos,DownloadStatus.OK);
-    }
-        Log.d(TAG, "onPostExecute: Ends");
+        if (callBack != null) {
+            callBack.onDataAvailable(photos, DownloadStatus.OK);
+        }
     }
 
     @Override
     protected List<Photo> doInBackground(String... params) {
-        Log.d(TAG, "doInBackground: Starts");
-        String destinationUri = createUri(params[0],language,matchAll);
-
+        String destinationUri = createUri(params[0], language, matchAll);
         GetRawData getRawData = new GetRawData(this);
+
         getRawData.runInSameThread(destinationUri);
-        Log.d(TAG, "doInBackground: Ends");
         return photos;
     }
 

@@ -19,25 +19,23 @@ public class MainActivity extends AppCompatActivity implements OnDataAvailable {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "onCreate: starts");
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
-        Log.d(TAG, "onCreate: ends");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         PhotoFromJSON photoFromJSON = new PhotoFromJSON("https://api.flickr.com/services/feeds/photos_public.gne", "en-us", true, this);
-        photoFromJSON.executeOnSameThread("android, nougat");
 
+        photoFromJSON.execute("android, nougat");
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        Log.d(TAG, "onCreateOptionsMenu() returned: " + true);
         return true;
     }
 
@@ -53,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements OnDataAvailable {
             return true;
         }
 
-        Log.d(TAG, "onOptionsItemSelected() returned: returned");
         return super.onOptionsItemSelected(item);
     }
 

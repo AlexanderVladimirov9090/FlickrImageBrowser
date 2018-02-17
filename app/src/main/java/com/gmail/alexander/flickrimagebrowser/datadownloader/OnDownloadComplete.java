@@ -8,5 +8,6 @@ package com.gmail.alexander.flickrimagebrowser.datadownloader;
  */
 
 public interface OnDownloadComplete {
+
     void onDownloadComplete(String data, DownloadStatus downloadStatus);
 }

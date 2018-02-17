@@ -1,7 +1,6 @@
 package com.gmail.alexander.flickrimagebrowser.datadownloader;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,28 +19,26 @@ public class GetRawData extends AsyncTask<String, Void, String> {
     private static String TAG = "GetRawData";
     private DownloadStatus downloadStatus;
     private OnDownloadComplete onDownloadComplete;
+
     public GetRawData(OnDownloadComplete callBack) {
         this.onDownloadComplete = callBack;
         this.downloadStatus = DownloadStatus.IDLE;
     }
 
-    public void runInSameThread(String s){
-        Log.d(TAG, "runInSameThread: Starts");
+    public void runInSameThread(String s) {
         onPostExecute(doInBackground(s));
-        Log.d(TAG, "runInSameThread: Ends.");
     }
 
     @Override
     protected void onPostExecute(String s) {
-        Log.d(TAG, "onPostExecute: parameter: " + s);
-            if (onDownloadComplete!=null){
-                onDownloadComplete.onDownloadComplete(s,downloadStatus);
-            }
-        Log.d(TAG, "onPostExecute: ends");
+        if (onDownloadComplete != null) {
+            onDownloadComplete.onDownloadComplete(s, downloadStatus);
+        }
     }
 
     /**
      * Downloading raw data from the resource.
+     *
      * @param strings given resource.
      * @return raw data from the resource.
      */
@@ -57,17 +54,20 @@ public class GetRawData extends AsyncTask<String, Void, String> {
         try {
             downloadStatus = DownloadStatus.PROCESSING;
             URL url = new URL(strings[0]);
+
             connection = (HttpURLConnection) url.openConnection();
             connection.connect();
+
             int response = connection.getResponseCode();
-            Log.d(TAG, "doInBackground: Response code was: " + response);
             StringBuilder result = new StringBuilder();
             reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String line = null;
+
             while (null != (line = reader.readLine())) {
                 result.append(line).append("\n");
 
             }
+
             downloadStatus = DownloadStatus.OK;
             return result.toString();
         } catch (MalformedURLException e) {
@@ -86,6 +86,7 @@ public class GetRawData extends AsyncTask<String, Void, String> {
                 }
             }
         }
+
         downloadStatus = DownloadStatus.FAIL_OR_EMPTY;
         return null;
     }

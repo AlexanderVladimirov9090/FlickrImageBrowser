@@ -12,5 +12,6 @@ import java.util.List;
  */
 
 public interface OnDataAvailable {
+
     void onDataAvailable(List<Photo> photos, DownloadStatus downloadStatus);
 }
