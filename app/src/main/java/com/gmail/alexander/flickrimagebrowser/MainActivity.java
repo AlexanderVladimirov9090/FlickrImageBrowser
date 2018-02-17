@@ -13,7 +13,7 @@ import com.gmail.alexander.flickrimagebrowser.serialization.PhotoFromJSON;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements  OnDataAvailable {
+public class MainActivity extends AppCompatActivity implements OnDataAvailable {
     private static final String TAG = "MainActivity";
 
 
@@ -22,15 +22,13 @@ public class MainActivity extends AppCompatActivity implements  OnDataAvailable 
         Log.d(TAG, "onCreate: starts");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-   /*     GetRawData getRawData = new GetRawData(this);
-        getRawData.execute("https://api.flickr.com/services/feeds/photos_public.gne/?tags=android&format=json&nojsoncallback=1");
-   */     Log.d(TAG, "onCreate: ends");
+        Log.d(TAG, "onCreate: ends");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        PhotoFromJSON photoFromJSON = new PhotoFromJSON("https://api.flickr.com/services/feeds/photos_public.gne","en-us",true,this);
+        PhotoFromJSON photoFromJSON = new PhotoFromJSON("https://api.flickr.com/services/feeds/photos_public.gne", "en-us", true, this);
         photoFromJSON.executeOnSameThread("android, nougat");
 
     }
