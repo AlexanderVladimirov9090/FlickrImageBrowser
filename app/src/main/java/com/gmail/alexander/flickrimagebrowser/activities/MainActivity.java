@@ -1,4 +1,4 @@
-package com.gmail.alexander.flickrimagebrowser;
+package com.gmail.alexander.flickrimagebrowser.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
