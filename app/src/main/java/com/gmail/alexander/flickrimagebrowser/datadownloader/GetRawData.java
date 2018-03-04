@@ -14,6 +14,7 @@ import java.net.URL;
  *
  * @author Alexander Vladimirov
  *         <alexandervladimirov1902@gmail.com>
+ *             Gets raw data from flicker.
  */
 public class GetRawData extends AsyncTask<String, Void, String> {
     private static String TAG = "GetRawData";
@@ -25,12 +26,20 @@ public class GetRawData extends AsyncTask<String, Void, String> {
         this.downloadStatus = DownloadStatus.IDLE;
     }
 
-    public void runInSameThread(String s) {
+    /**
+     * Runs on the same thread.
+     * @param url
+     */
+    public void runInSameThread(String url) {
         if (callBack != null) {
-            callBack.onDownloadComplete(doInBackground(s), downloadStatus);
+            callBack.onDownloadComplete(doInBackground(url), downloadStatus);
         }
     }
 
+    /**
+     * When finished download signals to callback.
+     * @param s
+     */
     @Override
     protected void onPostExecute(String s) {
         if (callBack != null) {
