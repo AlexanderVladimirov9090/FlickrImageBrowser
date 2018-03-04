@@ -2,26 +2,36 @@ package com.gmail.alexander.flickrimagebrowser.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.gmail.alexander.flickrimagebrowser.R;
+import com.gmail.alexander.flickrimagebrowser.adapters.ImageRecyclerAdapter;
 import com.gmail.alexander.flickrimagebrowser.datadownloader.DownloadStatus;
 import com.gmail.alexander.flickrimagebrowser.datadownloader.OnDataAvailable;
 import com.gmail.alexander.flickrimagebrowser.models.Photo;
 import com.gmail.alexander.flickrimagebrowser.serialization.PhotoFromJSON;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements OnDataAvailable {
     private static final String TAG = "MainActivity";
-
+    private ImageRecyclerAdapter imageRecyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
+
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        imageRecyclerAdapter = new ImageRecyclerAdapter(new ArrayList<Photo>(), this);
+        recyclerView.setAdapter(imageRecyclerAdapter);
     }
 
     @Override

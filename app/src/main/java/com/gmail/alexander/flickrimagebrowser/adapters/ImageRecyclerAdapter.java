@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.gmail.alexander.flickrimagebrowser.R;
 import com.gmail.alexander.flickrimagebrowser.holders.ImageViewHolder;
 import com.gmail.alexander.flickrimagebrowser.models.Photo;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ import java.util.List;
  *
  * @author Alexander Vladimirov
  *         <alexandervladimirov1902@gmail.com>
+ *             Adapter for image downloaded from flicker.
  */
 
 public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageViewHolder> {
@@ -40,12 +42,42 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageViewHolder> 
 
     @Override
     public void onBindViewHolder(ImageViewHolder holder, int position) {
+        // Called bt layout manager when it wants new data in an existing row
+        Photo photoItem = photos.get(position);
+        Log.d(TAG, "onBindViewHolder: Photo title: " + photoItem.getTitle()+ " position: " + position);
+        Picasso.with(context).load(photoItem.getImage())
+                .error(R.drawable.ic_launcher_background)
+                .placeholder(R.drawable.ic_launcher_background)
+                .into(holder.thumbnail);
 
+        holder.title.setText(photoItem.getTitle());
     }
 
+    /**
+     * Counts items.
+     * @return
+     */
     @Override
     public int getItemCount() {
         Log.d(TAG, "getItemCount: called");
         return ((photos != null) && (photos.size() != 0) ? photos.size() : 0);
+    }
+
+    /**
+     * Load new data and notify the change.
+     * @param newPhotos
+     */
+    public void loadNewData(List<Photo> newPhotos) {
+        photos = newPhotos;
+        notifyDataSetChanged();
+    }
+
+    /**
+     * Gets photo from photos collection.
+     * @param position
+     * @return
+     */
+    public Photo getPhoto(int position){
+        return ((photos !=null)&& (photos.size() !=0) ? photos.get(position) : null);
     }
 }

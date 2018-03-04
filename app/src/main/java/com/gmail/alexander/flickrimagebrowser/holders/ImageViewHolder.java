@@ -13,12 +13,13 @@ import com.gmail.alexander.flickrimagebrowser.R;
  *
  * @author Alexander Vladimirov
  *         <alexandervladimirov1902@gmail.com>
+ *             View holder for image downloaded from flicker.
  */
 
 public class ImageViewHolder extends RecyclerView.ViewHolder {
     private static final String TAG = "ImageViewHolder";
-    ImageView thumbnail = null;
-    TextView title = null;
+    public ImageView thumbnail = null;
+    public TextView title = null;
 
     public ImageViewHolder(View itemView) {
         super(itemView);
