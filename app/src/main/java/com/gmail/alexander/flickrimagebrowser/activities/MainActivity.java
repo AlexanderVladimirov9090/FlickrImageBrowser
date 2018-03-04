@@ -18,10 +18,18 @@ import com.gmail.alexander.flickrimagebrowser.serialization.PhotoFromJSON;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Main Activity that is a starting point ot the application.
+ * Now it is displaying static query from flicker.
+ */
 public class MainActivity extends AppCompatActivity implements OnDataAvailable {
     private static final String TAG = "MainActivity";
     private ImageRecyclerAdapter imageRecyclerAdapter;
 
+    /**
+     * On create as a starting point.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +42,9 @@ public class MainActivity extends AppCompatActivity implements OnDataAvailable {
         recyclerView.setAdapter(imageRecyclerAdapter);
     }
 
+    /**
+     * Called when resumed.
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -42,33 +53,38 @@ public class MainActivity extends AppCompatActivity implements OnDataAvailable {
         photoFromJSON.execute("android, nougat");
     }
 
+    /**
+     * When menu is created.
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
+    /**
+     * When selected item from the menu.
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        return id == R.id.action_settings || super.onOptionsItemSelected(item);
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
-
+    /**
+     * Signals to the adapter that photos are downloaded.
+     * @param photos
+     * @param downloadStatus
+     */
     @Override
     public void onDataAvailable(List<Photo> photos, DownloadStatus downloadStatus) {
         if (downloadStatus == DownloadStatus.OK) {
-            Log.d(TAG, "onDownloadComplete: data is" + photos);
+            imageRecyclerAdapter.loadNewData(photos);
         } else {
             Log.e(TAG, "onDownloadComplete: Failed with status: " + downloadStatus);
         }
