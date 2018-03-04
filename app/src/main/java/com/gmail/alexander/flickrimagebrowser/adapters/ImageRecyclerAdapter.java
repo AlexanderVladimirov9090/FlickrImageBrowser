@@ -2,8 +2,12 @@ package com.gmail.alexander.flickrimagebrowser.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
+import com.gmail.alexander.flickrimagebrowser.R;
 import com.gmail.alexander.flickrimagebrowser.holders.ImageViewHolder;
 import com.gmail.alexander.flickrimagebrowser.models.Photo;
 
@@ -16,7 +20,7 @@ import java.util.List;
  *         <alexandervladimirov1902@gmail.com>
  */
 
-public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageViewHolder>{
+public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageViewHolder> {
     private static final String TAG = "ImageRecyclerAdapter";
     private List<Photo> photos;
     private Context context;
@@ -28,7 +32,10 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageViewHolder>{
 
     @Override
     public ImageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
+        //Called by the layout manager when it needs new view
+        Log.d(TAG, "onCreateViewHolder: new view requested");
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.browse, parent, false);
+        return new ImageViewHolder(view);
     }
 
     @Override
@@ -38,6 +45,7 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageViewHolder>{
 
     @Override
     public int getItemCount() {
-        return 0;
+        Log.d(TAG, "getItemCount: called");
+        return ((photos != null) && (photos.size() != 0) ? photos.size() : 0);
     }
 }
