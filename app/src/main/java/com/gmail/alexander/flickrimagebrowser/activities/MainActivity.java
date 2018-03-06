@@ -1,5 +1,6 @@
 package com.gmail.alexander.flickrimagebrowser.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -121,7 +122,9 @@ public class MainActivity extends BaseActivity implements OnDataAvailable, OnRec
     @Override
     public void onItemLongClick(View view, int position) {
         Log.d(TAG, "onItemLongClick: Starts");
-        Toast.makeText(MainActivity.this, "Long Click on position: " + position, Toast.LENGTH_LONG).show();
-
+        // Toast.makeText(MainActivity.this, "Long Click on position: " + position, Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this, PhotoDetailActivity.class);
+        intent.putExtra(PHOTO_TRANSFER , imageRecyclerAdapter.getPhoto(position));
+        startActivity(intent);
     }
 }
