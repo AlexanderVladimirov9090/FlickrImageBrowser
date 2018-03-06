@@ -1,7 +1,6 @@
 package com.gmail.alexander.flickrimagebrowser.activities;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -26,7 +25,7 @@ import java.util.List;
  * Main Activity that is a starting point ot the application.
  * Now it is displaying static query from flicker.
  */
-public class MainActivity extends AppCompatActivity implements OnDataAvailable, OnRecyclerClickListener {
+public class MainActivity extends BaseActivity implements OnDataAvailable, OnRecyclerClickListener {
     private static final String TAG = "MainActivity";
     private ImageRecyclerAdapter imageRecyclerAdapter;
 
