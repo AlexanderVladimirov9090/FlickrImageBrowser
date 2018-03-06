@@ -7,11 +7,15 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.gmail.alexander.flickrimagebrowser.R;
 import com.gmail.alexander.flickrimagebrowser.adapters.ImageRecyclerAdapter;
 import com.gmail.alexander.flickrimagebrowser.datadownloader.DownloadStatus;
 import com.gmail.alexander.flickrimagebrowser.datadownloader.OnDataAvailable;
+import com.gmail.alexander.flickrimagebrowser.listeners.OnRecyclerClickListener;
+import com.gmail.alexander.flickrimagebrowser.listeners.RecyclerItemClickListener;
 import com.gmail.alexander.flickrimagebrowser.models.Photo;
 import com.gmail.alexander.flickrimagebrowser.serialization.PhotoFromJSON;
 
@@ -22,12 +26,13 @@ import java.util.List;
  * Main Activity that is a starting point ot the application.
  * Now it is displaying static query from flicker.
  */
-public class MainActivity extends AppCompatActivity implements OnDataAvailable {
+public class MainActivity extends AppCompatActivity implements OnDataAvailable, OnRecyclerClickListener {
     private static final String TAG = "MainActivity";
     private ImageRecyclerAdapter imageRecyclerAdapter;
 
     /**
      * On create as a starting point.
+     *
      * @param savedInstanceState
      */
     @Override
@@ -37,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements OnDataAvailable {
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, this, recyclerView));
 
         imageRecyclerAdapter = new ImageRecyclerAdapter(new ArrayList<Photo>(), this);
         recyclerView.setAdapter(imageRecyclerAdapter);
@@ -55,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements OnDataAvailable {
 
     /**
      * When menu is created.
+     *
      * @param menu
      * @return
      */
@@ -66,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements OnDataAvailable {
 
     /**
      * When selected item from the menu.
+     *
      * @param item
      * @return
      */
@@ -78,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements OnDataAvailable {
 
     /**
      * Signals to the adapter that photos are downloaded.
+     *
      * @param photos
      * @param downloadStatus
      */
@@ -88,5 +97,30 @@ public class MainActivity extends AppCompatActivity implements OnDataAvailable {
         } else {
             Log.e(TAG, "onDownloadComplete: Failed with status: " + downloadStatus);
         }
+    }
+
+    /**
+     * Executes on click.
+     *
+     * @param view
+     * @param position
+     */
+    @Override
+    public void onItemClick(View view, int position) {
+        Log.d(TAG, "onItemClick: Starts");
+        Toast.makeText(getApplicationContext(), "Normal Clickon position: " + position, Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * Executes on longer click.
+     *
+     * @param view
+     * @param position
+     */
+    @Override
+    public void onItemLongClick(View view, int position) {
+        Log.d(TAG, "onItemLongClick: Starts");
+        Toast.makeText(getApplicationContext(), "Long Click on position: " + position, Toast.LENGTH_LONG).show();
+
     }
 }
