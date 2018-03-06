@@ -20,7 +20,7 @@ public class BaseActivity extends AppCompatActivity {
     static final String PHOTO_TRANSFER = "PHOTO_TRANSFER";
 
     /**
-     *
+     * Activates toolbar and enable home button.
      * @param enableHome
      */
     public void activateToolbar(boolean enableHome) {
