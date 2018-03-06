@@ -40,7 +40,7 @@ public class MainActivity extends BaseActivity implements OnDataAvailable, OnRec
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        activateToolbar(false);
+     //   activateToolbar(false);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -111,6 +111,7 @@ public class MainActivity extends BaseActivity implements OnDataAvailable, OnRec
     public void onItemClick(View view, int position) {
         Log.d(TAG, "onItemClick: Starts");
         Toast.makeText(MainActivity.this, "Normal Click on position: " + position, Toast.LENGTH_LONG).show();
+
     }
 
     /**

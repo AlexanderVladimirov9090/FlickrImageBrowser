@@ -9,7 +9,9 @@ import java.io.Serializable;
  *         <alexandervladimirov1902@gmail.com>
  */
 
-public class Photo implements Serializable{
+public class Photo implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     private String title;
     private String author;
     private String authorId;
@@ -57,7 +59,7 @@ public class Photo implements Serializable{
 
     @Override
     public String toString() {
-        return  "title='" + title + '\'' +
+        return "title='" + title + '\'' +
                 ", author='" + author + '\'' +
                 ", authorId='" + authorId + '\'' +
                 ", link='" + link + '\'' +

@@ -38,7 +38,7 @@ public class RecyclerItemClickListener extends RecyclerView.SimpleOnItemTouchLis
                 View childView = recyclerView.findChildViewUnder(e.getX(), e.getY());
 
                 if (childView != null && onRecyclerClickListener != null) {
-                    onRecyclerClickListener.onItemClick(childView, recyclerView.getChildAdapterPosition(childView));
+                    onRecyclerClickListener.onItemLongClick(childView, recyclerView.getChildAdapterPosition(childView));
                 }
             }
         });
