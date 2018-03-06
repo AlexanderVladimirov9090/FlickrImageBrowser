@@ -39,6 +39,8 @@ public class MainActivity extends BaseActivity implements OnDataAvailable, OnRec
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        activateToolbar(false);
+
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, this, recyclerView));
