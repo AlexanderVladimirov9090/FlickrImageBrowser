@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements OnDataAvailable, 
     @Override
     public void onItemClick(View view, int position) {
         Log.d(TAG, "onItemClick: Starts");
-        Toast.makeText(getApplicationContext(), "Normal Clickon position: " + position, Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this, "Normal Click on position: " + position, Toast.LENGTH_LONG).show();
     }
 
     /**
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements OnDataAvailable, 
     @Override
     public void onItemLongClick(View view, int position) {
         Log.d(TAG, "onItemLongClick: Starts");
-        Toast.makeText(getApplicationContext(), "Long Click on position: " + position, Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this, "Long Click on position: " + position, Toast.LENGTH_LONG).show();
 
     }
 }
