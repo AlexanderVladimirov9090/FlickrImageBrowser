@@ -1,5 +1,7 @@
 package com.gmail.alexander.flickrimagebrowser.models;
 
+import java.io.Serializable;
+
 /**
  * Created by:
  *
@@ -7,7 +9,7 @@ package com.gmail.alexander.flickrimagebrowser.models;
  *         <alexandervladimirov1902@gmail.com>
  */
 
-public class Photo {
+public class Photo implements Serializable{
     private String title;
     private String author;
     private String authorId;
