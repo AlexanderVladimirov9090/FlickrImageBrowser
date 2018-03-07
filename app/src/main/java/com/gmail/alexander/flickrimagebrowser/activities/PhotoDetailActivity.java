@@ -20,16 +20,16 @@ public class PhotoDetailActivity extends BaseActivity {
         Intent intent = getIntent();
         Photo photo =(Photo) intent.getSerializableExtra(PHOTO_TRANSFER);
         if(photo != null){
-            TextView photoTitle = (TextView) findViewById(R.id.photoTitle);
+            TextView photoTitle = (TextView) findViewById(R.id.photo_title);
             photoTitle.setText("Title: "+photo.getTitle());
 
-            TextView photoTags = (TextView) findViewById(R.id.photoTags);
+            TextView photoTags = (TextView) findViewById(R.id.photo_tags);
             photoTags.setText("Tags: "+ photo.getTags());
 
-            TextView photoAuthor = (TextView) findViewById(R.id.photoAuthor);
+            TextView photoAuthor = (TextView) findViewById(R.id.photo_author);
             photoAuthor.setText("Author: " + photo.getAuthor());
 
-            ImageView photoContent = (ImageView) findViewById(R.id.photoImage);
+            ImageView photoContent = (ImageView) findViewById(R.id.photo_image);
 
             Picasso.with(this).load(photo.getImage())
                     .error(R.drawable.ic_launcher_background)
