@@ -40,7 +40,7 @@ public class MainActivity extends BaseActivity implements OnDataAvailable, OnRec
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-     //   activateToolbar(false);
+        //   activateToolbar(false);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -82,8 +82,16 @@ public class MainActivity extends BaseActivity implements OnDataAvailable, OnRec
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        return id == R.id.action_settings || super.onOptionsItemSelected(item);
+        if (id == R.id.action_settings) {
+            return true;
+        }
 
+        if (id == R.id.action_search) {
+            Intent intent = new Intent(this, SearchActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -125,7 +133,7 @@ public class MainActivity extends BaseActivity implements OnDataAvailable, OnRec
         Log.d(TAG, "onItemLongClick: Starts");
         // Toast.makeText(MainActivity.this, "Long Click on position: " + position, Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, PhotoDetailActivity.class);
-        intent.putExtra(PHOTO_TRANSFER , imageRecyclerAdapter.getPhoto(position));
+        intent.putExtra(PHOTO_TRANSFER, imageRecyclerAdapter.getPhoto(position));
         startActivity(intent);
     }
 }

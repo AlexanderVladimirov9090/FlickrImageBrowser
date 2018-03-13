@@ -9,5 +9,7 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/action_search"
-        android:title="@string/search" />
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="@string/search"
+        app:showAsAction="ifRoom|withText" />
 </menu>
