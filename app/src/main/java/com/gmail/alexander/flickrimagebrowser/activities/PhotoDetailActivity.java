@@ -1,6 +1,7 @@
 package com.gmail.alexander.flickrimagebrowser.activities;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,14 +21,21 @@ public class PhotoDetailActivity extends BaseActivity {
         Intent intent = getIntent();
         Photo photo =(Photo) intent.getSerializableExtra(PHOTO_TRANSFER);
         if(photo != null){
+            Resources resources = getResources();
+
             TextView photoTitle = (TextView) findViewById(R.id.photo_title);
-            photoTitle.setText("Title: "+photo.getTitle());
+            String title = resources.getString(R.string.photo_title_text, photo.getTitle());
+            photoTitle.setText(title);
 
             TextView photoTags = (TextView) findViewById(R.id.photo_tags);
-            photoTags.setText("Tags: "+ photo.getTags());
+            String tags = resources.getString(R.string.photo_tags, photo.getTags());
+
+            photoTags.setText(tags);
 
             TextView photoAuthor = (TextView) findViewById(R.id.photo_author);
-            photoAuthor.setText("Author: " + photo.getAuthor());
+            String author = resources.getString(R.string.photo_author, photo.getAuthor());
+
+            photoAuthor.setText(author);
 
             ImageView photoContent = (ImageView) findViewById(R.id.photo_image);
 
