@@ -19,23 +19,20 @@ public class PhotoDetailActivity extends BaseActivity {
         activateToolbar(true);
 
         Intent intent = getIntent();
-        Photo photo =(Photo) intent.getSerializableExtra(PHOTO_TRANSFER);
-        if(photo != null){
+        Photo photo = (Photo) intent.getSerializableExtra(PHOTO_TRANSFER);
+        if (photo != null) {
             Resources resources = getResources();
 
             TextView photoTitle = (TextView) findViewById(R.id.photo_title);
-            String title = resources.getString(R.string.photo_title_text, photo.getTitle());
-            photoTitle.setText(title);
+            photoTitle.setText(resources.getString(R.string.photo_title_text, photo.getTitle()));
 
             TextView photoTags = (TextView) findViewById(R.id.photo_tags);
             String tags = resources.getString(R.string.photo_tags, photo.getTags());
 
-            photoTags.setText(tags);
+            photoTags.setText(resources.getString(R.string.photo_tags, photo.getTags()));
 
             TextView photoAuthor = (TextView) findViewById(R.id.photo_author);
-            String author = resources.getString(R.string.photo_author, photo.getAuthor());
-
-            photoAuthor.setText(author);
+            photoAuthor.setText(resources.getString(R.string.photo_author, photo.getAuthor()));
 
             ImageView photoContent = (ImageView) findViewById(R.id.photo_image);
 
