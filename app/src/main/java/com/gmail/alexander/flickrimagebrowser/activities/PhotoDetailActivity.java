@@ -27,8 +27,6 @@ public class PhotoDetailActivity extends BaseActivity {
             photoTitle.setText(resources.getString(R.string.photo_title_text, photo.getTitle()));
 
             TextView photoTags = (TextView) findViewById(R.id.photo_tags);
-            String tags = resources.getString(R.string.photo_tags, photo.getTags());
-
             photoTags.setText(resources.getString(R.string.photo_tags, photo.getTags()));
 
             TextView photoAuthor = (TextView) findViewById(R.id.photo_author);
