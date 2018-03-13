@@ -21,6 +21,7 @@ public class BaseActivity extends AppCompatActivity {
 
     /**
      * Activates toolbar and enable home button.
+     *
      * @param enableHome
      */
     public void activateToolbar(boolean enableHome) {
@@ -28,7 +29,7 @@ public class BaseActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar == null) {
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
+            toolbar.setNavigationIcon(R.drawable.ic_action_name);
             if (toolbar != null) {
                 setSupportActionBar(toolbar);
                 actionBar = getSupportActionBar();
