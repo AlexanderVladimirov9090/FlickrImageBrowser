@@ -43,15 +43,20 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageViewHolder> 
     @Override
     public void onBindViewHolder(ImageViewHolder holder, int position) {
         // Called bt layout manager when it wants new data in an existing row
-        Photo photoItem = photos.get(position);
-        Log.d(TAG, "onBindViewHolder: Photo title: " + photoItem.getTitle()+ " position: " + position);
-        Picasso.with(context).load(photoItem.getImage())
-                .error(R.drawable.ic_launcher_background)
-                .placeholder(R.drawable.ic_launcher_background)
-                .into(holder.thumbnail);
+        if(photos== null || photos.size()==0){
+            holder.thumbnail.setImageResource(R.drawable.ic_launcher_background);
+            holder.title.setText("No photos match you search\n\nUse the search icon again.");
+        }else {
+            Photo photoItem = photos.get(position);
+            Log.d(TAG, "onBindViewHolder: Photo title: " + photoItem.getTitle() + " position: " + position);
+            Picasso.with(context).load(photoItem.getImage())
+                    .error(R.drawable.ic_launcher_background)
+                    .placeholder(R.drawable.ic_launcher_background)
+                    .into(holder.thumbnail);
 
-        holder.title.setText(photoItem.getTitle());
-    }
+            holder.title.setText(photoItem.getTitle());
+        }
+        }
 
     /**
      * Counts items.

@@ -1,7 +1,9 @@
 package com.gmail.alexander.flickrimagebrowser.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -56,9 +58,12 @@ public class MainActivity extends BaseActivity implements OnDataAvailable, OnRec
     @Override
     protected void onResume() {
         super.onResume();
-        PhotoFromJSON photoFromJSON = new PhotoFromJSON("https://api.flickr.com/services/feeds/photos_public.gne", "en-us", true, this);
-
-        photoFromJSON.execute("android, nougat");
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String queryResult = sharedPreferences.getString(FLICKR_QUERY,"");
+        if(queryResult.length()>0) {
+            PhotoFromJSON photoFromJSON = new PhotoFromJSON("https://api.flickr.com/services/feeds/photos_public.gne", "en-us", true, this);
+            photoFromJSON.execute(queryResult);
+        }
     }
 
     /**
