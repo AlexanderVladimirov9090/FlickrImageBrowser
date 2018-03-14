@@ -1,6 +1,8 @@
 # Flickr Image Browser
 
 Practicing restful application.
+This application is about browsing the Flickr photo web service.
+
 
 ## Getting Started
 
