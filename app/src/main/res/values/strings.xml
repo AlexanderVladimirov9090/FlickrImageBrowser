@@ -8,5 +8,6 @@
     <string name="photo_title_text">Title: %s</string>
     <string name="photo_tags">Tags: %s</string>
     <string name="photo_author">Author: %s</string>
+    <string name="search_bar">Search</string>
 
 </resources>
