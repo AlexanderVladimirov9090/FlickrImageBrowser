@@ -65,7 +65,7 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageViewHolder> 
     @Override
     public int getItemCount() {
         Log.d(TAG, "getItemCount: called");
-        return ((photos != null) && (photos.size() != 0) ? photos.size() : 1g);
+        return ((photos != null) && (photos.size() != 0) ? photos.size() : 1);
     }
 
     /**
