@@ -45,7 +45,7 @@ public class ImageRecyclerAdapter extends RecyclerView.Adapter<ImageViewHolder> 
         // Called bt layout manager when it wants new data in an existing row
         if(photos== null || photos.size()==0){
             holder.thumbnail.setImageResource(R.drawable.ic_launcher_background);
-            holder.title.setText("No photos match you search\n\nUse the search icon again.");
+            holder.title.setText("No photos match your search.");
         }else {
             Photo photoItem = photos.get(position);
             Log.d(TAG, "onBindViewHolder: Photo title: " + photoItem.getTitle() + " position: " + position);
