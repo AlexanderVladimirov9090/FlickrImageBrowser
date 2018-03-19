@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,7 +28,6 @@ import java.util.List;
  * Now it is displaying static query from flicker.
  */
 public class MainActivity extends BaseActivity implements OnDataAvailable, OnRecyclerClickListener {
-    private static final String TAG = "MainActivity";
     private ImageRecyclerAdapter imageRecyclerAdapter;
 
     /**
@@ -109,8 +107,6 @@ public class MainActivity extends BaseActivity implements OnDataAvailable, OnRec
     public void onDataAvailable(List<Photo> photos, DownloadStatus downloadStatus) {
         if (downloadStatus == DownloadStatus.OK) {
             imageRecyclerAdapter.loadNewData(photos);
-        } else {
-            Log.e(TAG, "onDownloadComplete: Failed with status: " + downloadStatus);
         }
     }
 
@@ -122,7 +118,6 @@ public class MainActivity extends BaseActivity implements OnDataAvailable, OnRec
      */
     @Override
     public void onItemClick(View view, int position) {
-        Log.d(TAG, "onItemClick: Starts");
         Toast.makeText(MainActivity.this, "Normal Click on position: " + position, Toast.LENGTH_LONG).show();
 
     }
@@ -135,7 +130,6 @@ public class MainActivity extends BaseActivity implements OnDataAvailable, OnRec
      */
     @Override
     public void onItemLongClick(View view, int position) {
-        Log.d(TAG, "onItemLongClick: Starts");
         // Toast.makeText(MainActivity.this, "Long Click on position: " + position, Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, PhotoDetailActivity.class);
         intent.putExtra(PHOTO_TRANSFER, imageRecyclerAdapter.getPhoto(position));

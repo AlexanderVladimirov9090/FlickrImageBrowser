@@ -2,7 +2,6 @@ package com.gmail.alexander.flickrimagebrowser.serialization;
 
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.gmail.alexander.flickrimagebrowser.datadownloader.DownloadStatus;
 import com.gmail.alexander.flickrimagebrowser.datadownloader.GetRawData;
@@ -25,7 +24,6 @@ import java.util.List;
  */
 
 public class PhotoFromJSON extends AsyncTask<String, Void, List<Photo>> implements OnDownloadComplete {
-    private static final String TAG = "PhotoFromJSON";
     private List<Photo> photos = null;
     private String baseUrl;
     private String language;
@@ -69,13 +67,13 @@ public class PhotoFromJSON extends AsyncTask<String, Void, List<Photo>> implemen
                     String link = photoUrl.replaceFirst("_m.", "_b.");
                     Photo photo = new Photo(title, author, authorId, link, tags, photoUrl);
                     photos.add(photo);
-                    Log.d(TAG, "onDownloadComplete: " + photo.toString());
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
                 downloadStatus = DownloadStatus.FAIL_OR_EMPTY;
             }
             if (onSameThread && callBack != null) {
+                System.out.println(photos.toString());
                 callBack.onDataAvailable(photos, downloadStatus);
             }
         }

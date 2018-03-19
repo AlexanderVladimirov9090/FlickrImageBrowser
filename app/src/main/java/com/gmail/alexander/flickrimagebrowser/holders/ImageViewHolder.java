@@ -1,7 +1,6 @@
 package com.gmail.alexander.flickrimagebrowser.holders;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,13 +16,11 @@ import com.gmail.alexander.flickrimagebrowser.R;
  */
 
 public class ImageViewHolder extends RecyclerView.ViewHolder {
-    private static final String TAG = "ImageViewHolder";
     public ImageView thumbnail = null;
     public TextView title = null;
 
     public ImageViewHolder(View itemView) {
         super(itemView);
-        Log.d(TAG, "ImageViewHolder: Constructor Called");
         this.thumbnail = (ImageView) itemView.findViewById(R.id.thumbnail);
         this.title = (TextView) itemView.findViewById(R.id.photoTitle);
     }
