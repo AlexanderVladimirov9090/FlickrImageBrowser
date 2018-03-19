@@ -3,7 +3,6 @@ package com.gmail.alexander.flickrimagebrowser.activities;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 
 import com.gmail.alexander.flickrimagebrowser.R;
 
@@ -15,7 +14,6 @@ import com.gmail.alexander.flickrimagebrowser.R;
  */
 
 public class BaseActivity extends AppCompatActivity {
-    private static final String TAG = "BaseActivity";
     static final String FLICKR_QUERY = "FLICKER_QUERY";
     static final String PHOTO_TRANSFER = "PHOTO_TRANSFER";
 
@@ -25,7 +23,6 @@ public class BaseActivity extends AppCompatActivity {
      * @param enableHome
      */
     public void activateToolbar(boolean enableHome) {
-        Log.d(TAG, "activateToolbar: Starts");
         ActionBar actionBar = getSupportActionBar();
         if (actionBar == null) {
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
