@@ -5,8 +5,8 @@ import org.junit.Test;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
@@ -24,7 +24,7 @@ public class GetRawDataTest {
     public void downloadOnSameThread(){
         OnDownloadComplete onDownloadComplete = mock(OnDownloadComplete.class);
         GetRawData getRawData = new GetRawData(onDownloadComplete);
-        verify(onDownloadComplete).onDownloadComplete(anyString(),eq(DownloadStatus.OK));
+        verify(onDownloadComplete).onDownloadComplete(anyString(),any(DownloadStatus.class));
         getRawData.runInSameThread("https://api.flickr.com/services/feeds/photos_public.gne?tag=hello");
     }
 

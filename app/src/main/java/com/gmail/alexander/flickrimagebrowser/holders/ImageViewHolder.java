@@ -16,6 +16,7 @@ import com.gmail.alexander.flickrimagebrowser.R;
  */
 
 public class ImageViewHolder extends RecyclerView.ViewHolder {
+    private static final String TAG = "ImageViewHolder";
     public ImageView thumbnail = null;
     public TextView title = null;
 
