@@ -2,6 +2,7 @@ package com.gmail.alexander.flickrimagebrowser.serialization;
 
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.gmail.alexander.flickrimagebrowser.datadownloader.DownloadStatus;
 import com.gmail.alexander.flickrimagebrowser.datadownloader.GetRawData;
@@ -42,7 +43,6 @@ public class PhotoFromJSON extends AsyncTask<String, Void, List<Photo>> implemen
         onSameThread = true;
         String destinationUri = createUri(searchCriteria, language, matchAll);
         GetRawData getRawData = new GetRawData(this);
-
         getRawData.execute(destinationUri);
     }
 
@@ -50,7 +50,7 @@ public class PhotoFromJSON extends AsyncTask<String, Void, List<Photo>> implemen
     public void onDownloadComplete(String data, DownloadStatus downloadStatus) {
         if (downloadStatus == DownloadStatus.OK) {
             photos = new ArrayList<>();
-
+            Log.d("Data", "onDownloadComplete: " + data);
             try {
                 JSONObject jsonData = new JSONObject(data);
                 JSONArray itemsArray = jsonData.getJSONArray("items");
@@ -73,11 +73,11 @@ public class PhotoFromJSON extends AsyncTask<String, Void, List<Photo>> implemen
                 downloadStatus = DownloadStatus.FAIL_OR_EMPTY;
             }
             if (onSameThread && callBack != null) {
-                System.out.println(photos.toString());
                 callBack.onDataAvailable(photos, downloadStatus);
             }
         }
     }
+
 
     @Override
     protected void onPostExecute(List<Photo> photos) {
