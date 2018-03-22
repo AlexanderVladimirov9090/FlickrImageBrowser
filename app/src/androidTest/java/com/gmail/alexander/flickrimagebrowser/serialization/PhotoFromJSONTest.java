@@ -11,9 +11,13 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -29,11 +33,33 @@ public class PhotoFromJSONTest {
 
     @Test
     public void onDataAvailable() {
-
         OnDataAvailable onDataAvailable = mock(OnDataAvailable.class);
         PhotoFromJSON photoFromJSON = new PhotoFromJSON("https://api.flickr.com/services/feeds/photos_public.gne", "en-us", true, onDataAvailable);
         photoFromJSON.onPostExecute(new ArrayList<Photo>());
         verify(onDataAvailable, times(1)).onDataAvailable(ArgumentMatchers.<Photo>anyList(), any(DownloadStatus.class));
     }
 
+    @Test
+    public void brokenLink() {
+        OnDataAvailable onDataAvailable = mock(OnDataAvailable.class);
+        PhotoFromJSON photoFromJSON = new PhotoFromJSON("BrokenLink", "en-us", true, onDataAvailable);
+        photoFromJSON.execute("Some query");
+        verify(onDataAvailable, never()).onDataAvailable(ArgumentMatchers.<Photo>anyList(), any(DownloadStatus.class));
+    }
+
+    @Test
+    public void downloadedData() {
+        OnDataAvailable onDataAvailable = mock(OnDataAvailable.class);
+        PhotoFromJSON photoFromJSON = new PhotoFromJSON("https://api.flickr.com/services/feeds/photos_public.gne", "en-us", true, onDataAvailable);
+        List<Photo> result = photoFromJSON.doInBackground("https://api.flickr.com/services/feeds/photos_public.gne");
+        assertNotNull(result);
+    }
+
+    @Test
+    public void notDownloaded(){
+        OnDataAvailable onDataAvailable = mock(OnDataAvailable.class);
+        PhotoFromJSON photoFromJSON = new PhotoFromJSON("no link", "en-us", true, onDataAvailable);
+        List<Photo> result = photoFromJSON.doInBackground("brokenLink");
+        assertNull(result);
+    }
 }
