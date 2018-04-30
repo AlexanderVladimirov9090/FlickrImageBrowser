@@ -49,8 +49,8 @@ public class ImageRecyclerAdapterTest {
     @Test
     public void countPhotos() {
         List<Photo> photos = new ArrayList<>();
-        photos.add(new Photo("some title", "some author", "Some id", "app/test_data/picture.jpg", "some tag", "app/test_data/picture.jpg"));
-        photos.add(new Photo("other title", "other author", "other id", "other link", "other tag", "other image path"));
+        photos.add(new Photo("some title1", "some author", "Some id", "app/test_data/picture.jpg", "some tag", "app/test_data/picture.jpg"));
+        photos.add(new Photo("other title2", "other author", "other id", "other link", "other tag", "other image path"));
         ImageRecyclerAdapter imageRecyclerAdapter = new ImageRecyclerAdapter(photos, getContext());
         int actualCount = imageRecyclerAdapter.getItemCount();
         assertEquals(2, actualCount);

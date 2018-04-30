@@ -51,7 +51,7 @@ public class GetRawDataTest {
     public void brokenLink() {
         OnDownloadComplete onDownloadComplete = mock(OnDownloadComplete.class);
         GetRawData getRawData = new GetRawData(onDownloadComplete);
-        String nullResult = getRawData.doInBackground("this is broken link");
+        String nullResult = getRawData.doInBackground("this is broken link123");
         assertEquals(null, nullResult);
     }
 }
